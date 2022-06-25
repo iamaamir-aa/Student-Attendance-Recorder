@@ -36,5 +36,9 @@
         <action
             android:id="@+id/action_studentListFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 </navigation>

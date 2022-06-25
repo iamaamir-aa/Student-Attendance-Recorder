@@ -76,7 +76,7 @@ classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA I","Operatin
 
 
 
-        recyclerViewAdapterForClassList=new RecyclerViewAdapterForClassList(getContext(),classAndSubjectDetailsArrayList);
+        recyclerViewAdapterForClassList=new RecyclerViewAdapterForClassList(getContext(),classAndSubjectDetailsArrayList,SecondFragment.this);
         recyclerViewClass.setAdapter(recyclerViewAdapterForClassList);
 
 
