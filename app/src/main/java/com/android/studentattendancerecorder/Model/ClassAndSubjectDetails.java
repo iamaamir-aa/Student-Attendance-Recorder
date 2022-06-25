@@ -6,6 +6,21 @@ public class ClassAndSubjectDetails {
     private String class_name;
     private String subject_name;
     static int id=0;
+    private StudentsDetail studentsDetail;
+
+    public StudentsDetail getStudentsDetail() {
+        return studentsDetail;
+    }
+
+    public void setStudentsDetail(StudentsDetail studentsDetail) {
+        this.studentsDetail = studentsDetail;
+    }
+
+    public ClassAndSubjectDetails(String class_name, String subject_name, StudentsDetail studentsDetail) {
+        this.class_name = class_name;
+        this.subject_name = subject_name;
+        this.studentsDetail = studentsDetail;
+    }
 
     public ClassAndSubjectDetails(String aClass, String subject) {
         class_name = aClass;
