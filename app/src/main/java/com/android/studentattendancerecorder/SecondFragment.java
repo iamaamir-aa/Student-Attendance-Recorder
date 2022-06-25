@@ -1,7 +1,9 @@
 package com.android.studentattendancerecorder;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,7 +46,7 @@ public class SecondFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+//registerForContextMenu(recyclerViewClass);
         recyclerViewClass = view.findViewById(R.id.recyclerViewClass);
         recyclerViewClass.setHasFixedSize(true);
         recyclerViewClass.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -106,9 +109,12 @@ public class SecondFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails(className.getText().toString(),
-                        subjectName.getText().toString()));
-                recyclerViewAdapterForClassList.notifyDataSetChanged();
+                //if(className.getText().toString()!="" || subjectName.getText().toString() !="" ){
+                    classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails(className.getText().toString(),
+                            subjectName.getText().toString()));
+                    recyclerViewAdapterForClassList.notifyDataSetChanged();
+            //    }
+
                 linearLayoutCreateClass.setVisibility(View.INVISIBLE);
                 constraintLayoutClassList.setVisibility(View.VISIBLE);
 
@@ -116,6 +122,8 @@ public class SecondFragment extends Fragment {
             }
         });
     }
+
+
 
     @Override
     public void onDestroyView() {

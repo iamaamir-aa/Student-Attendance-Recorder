@@ -52,6 +52,7 @@
         android:background="#ECCFCF"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:padding="12dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,10 +60,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Add Student"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/textView979"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Student Name" />
+            android:text="Student Name"
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/editTextStudentName"
@@ -77,7 +89,8 @@
             android:id="@+id/tv2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enrollment Number" />
+            android:text="Enrollment Number"
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/editTextEnrollmentNumber"
@@ -87,25 +100,6 @@
             android:inputType="textPersonName"
             android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Strength" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -123,7 +117,7 @@
                 android:id="@+id/cancelStudentButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
+                android:layout_marginLeft="32dp"
                 android:layout_weight="1"
                 android:text="Cancel" />
         </LinearLayout>

@@ -7,7 +7,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="6dp"
+        android:background="@drawable/rounded_edittext">
 
         <TextView
             android:id="@+id/className"

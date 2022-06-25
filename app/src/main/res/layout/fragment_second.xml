@@ -44,40 +44,67 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:background="#ECCFCF"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="#E1D6F4"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:padding="12dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/textViewAddNewClass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Add New Class"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Class Name" />
+            android:text="Class Name"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTextClassName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:hint="Eg. MCA"
+            android:inputType="textPersonName"
+            android:padding="10dp" />
 
         <TextView
             android:id="@+id/tv2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Subject" />
+            android:text="Subject"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTextSubjectName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:hint="Operating Systems"
+            android:inputType="textPersonName"
+            android:padding="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,15 +116,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Strength" />
+                android:text="Strength"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextTextPersonName4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_edittext"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:hint="58"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -109,6 +142,7 @@
                 android:id="@+id/addButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="48dp"
                 android:layout_weight="1"
                 android:text="Add" />
 
