@@ -3,6 +3,8 @@ package com.android.studentattendancerecorder;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,16 +25,43 @@ import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForClas
 import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
 import com.android.studentattendancerecorder.databinding.FragmentSecondBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
 public class SecondFragment extends Fragment {
-
     private RecyclerView recyclerViewClass;
     private RecyclerViewAdapterForClassList recyclerViewAdapterForClassList;
     private ArrayList<ClassAndSubjectDetails> classAndSubjectDetailsArrayList;
     private ArrayAdapter<String> arrayAdapter;
     private FragmentSecondBinding binding;
+    private FirebaseAuth mAuth;
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu_class,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.signOutMenuItem:mAuth.signOut();
+            return true;
+            case R.id.about: return false;
+            default:
+                Toast.makeText(getActivity(), "Incorrect Selection", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(
@@ -46,7 +76,7 @@ public class SecondFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//registerForContextMenu(recyclerViewClass);
+        mAuth=FirebaseAuth.getInstance();
         recyclerViewClass = view.findViewById(R.id.recyclerViewClass);
         recyclerViewClass.setHasFixedSize(true);
         recyclerViewClass.setLayoutManager(new LinearLayoutManager(getActivity()));

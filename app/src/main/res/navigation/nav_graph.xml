@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_sign_up_fragment"
+            app:destination="@id/sign_up_fragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -40,5 +43,14 @@
             android:name="position"
             app:argType="integer"
             android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/sign_up_fragment"
+        android:name="com.android.studentattendancerecorder.sign_up_fragment"
+        android:label="fragment_sign_up_fragment"
+        tools:layout="@layout/fragment_sign_up_fragment" >
+        <action
+            android:id="@+id/action_sign_up_fragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>
