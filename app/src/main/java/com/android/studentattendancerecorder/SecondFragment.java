@@ -2,16 +2,22 @@ package com.android.studentattendancerecorder;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,17 +25,50 @@ import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForClas
 import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
 import com.android.studentattendancerecorder.databinding.FragmentSecondBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
 public class SecondFragment extends Fragment {
-
     private RecyclerView recyclerViewClass;
     private RecyclerViewAdapterForClassList recyclerViewAdapterForClassList;
     private ArrayList<ClassAndSubjectDetails> classAndSubjectDetailsArrayList;
     private ArrayAdapter<String> arrayAdapter;
     private FragmentSecondBinding binding;
+    private FirebaseAuth mAuth;
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu_class,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.signOutMenuButton:mAuth.signOut();updateUI(mAuth.getCurrentUser());
+            return true;
+            case R.id.about: return false;
+            default:
+                Toast.makeText(getActivity(), "Incorrect Selection", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return false;
+    }
+    private void updateUI(FirebaseUser user){
+        if(user==null) {
+            NavHostFragment.findNavController(SecondFragment.this)
+                    .navigate(R.id.action_SecondFragment_to_FirstFragment);
+        }
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+    }
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -43,7 +82,7 @@ public class SecondFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mAuth=FirebaseAuth.getInstance();
         recyclerViewClass = view.findViewById(R.id.recyclerViewClass);
         recyclerViewClass.setHasFixedSize(true);
         recyclerViewClass.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -106,9 +145,12 @@ public class SecondFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails(className.getText().toString(),
-                        subjectName.getText().toString()));
-                recyclerViewAdapterForClassList.notifyDataSetChanged();
+                //if(className.getText().toString()!="" || subjectName.getText().toString() !="" ){
+                    classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails(className.getText().toString(),
+                            subjectName.getText().toString()));
+                    recyclerViewAdapterForClassList.notifyDataSetChanged();
+            //    }
+
                 linearLayoutCreateClass.setVisibility(View.INVISIBLE);
                 constraintLayoutClassList.setVisibility(View.VISIBLE);
 
@@ -116,6 +158,8 @@ public class SecondFragment extends Fragment {
             }
         });
     }
+
+
 
     @Override
     public void onDestroyView() {

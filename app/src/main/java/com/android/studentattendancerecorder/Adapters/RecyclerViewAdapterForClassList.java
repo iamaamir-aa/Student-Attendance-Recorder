@@ -53,7 +53,7 @@ holder.class_name.setText(classAndSubjectDetails.getClass_name());
     public int getItemCount() {
         return classAndSubjectDetailsList.size();
     }
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
     public TextView class_name;
         public TextView subject_name;        
         public ViewHolder(@NonNull View itemView) {
@@ -70,6 +70,14 @@ holder.class_name.setText(classAndSubjectDetails.getClass_name());
             action.setPosition(getLayoutPosition());
             NavHostFragment.findNavController(fragment).navigate(action);
 
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+
+
+
+            return false;
         }
     }
 }

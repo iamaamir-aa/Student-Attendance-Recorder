@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "682210063169",
+    "project_id": "attendance-recorder-fd48c",
+    "storage_bucket": "attendance-recorder-fd48c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682210063169:android:15c3236f47a6f566abe7c0",
+        "android_client_info": {
+          "package_name": "com.android.studentattendancerecorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "682210063169-urgr2jktufa78tiptf3cichllng2qam6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEAzkBsMUEkgN5MJG-orahK1SqORk-Zho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "682210063169-urgr2jktufa78tiptf3cichllng2qam6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
