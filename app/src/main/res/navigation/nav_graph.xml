@@ -26,7 +26,9 @@
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/FirstFragment"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_SecondFragment_to_studentListFragment"
             app:destination="@id/studentListFragment" />

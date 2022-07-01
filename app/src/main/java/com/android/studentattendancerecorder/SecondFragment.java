@@ -1,7 +1,6 @@
 package com.android.studentattendancerecorder;
 
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +25,9 @@ import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForClas
 import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
 import com.android.studentattendancerecorder.databinding.FragmentSecondBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -46,7 +48,7 @@ public class SecondFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.signOutMenuItem:mAuth.signOut();
+            case R.id.signOutMenuButton:mAuth.signOut();updateUI(mAuth.getCurrentUser());
             return true;
             case R.id.about: return false;
             default:
@@ -56,13 +58,17 @@ public class SecondFragment extends Fragment {
 
         return false;
     }
-
+    private void updateUI(FirebaseUser user){
+        if(user==null) {
+            NavHostFragment.findNavController(SecondFragment.this)
+                    .navigate(R.id.action_SecondFragment_to_FirstFragment);
+        }
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     setHasOptionsMenu(true);
     }
-
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,

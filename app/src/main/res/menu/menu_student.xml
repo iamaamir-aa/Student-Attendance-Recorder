@@ -3,6 +3,6 @@
 
     <item android:title="Item" />
     <item
-        android:id="@+id/signOutMenuButton"
-        android:title="Sign Out" />
+        android:id="@+id/print"
+        android:title="Print" />
 </menu>
