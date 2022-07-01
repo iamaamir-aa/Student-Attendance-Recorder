@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_sign_up_fragment"
             app:destination="@id/sign_up_fragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_aboutUs"
+            app:destination="@id/aboutUs" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -45,6 +48,9 @@
             android:name="position"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_studentListFragment_to_printAttendance"
+            app:destination="@id/printAttendance" />
     </fragment>
     <fragment
         android:id="@+id/sign_up_fragment"
@@ -55,4 +61,18 @@
             android:id="@+id/action_sign_up_fragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/printAttendance"
+        android:name="com.android.studentattendancerecorder.printAttendance"
+        android:label="fragment_print_attendance"
+        tools:layout="@layout/fragment_print_attendance" >
+        <action
+            android:id="@+id/action_printAttendance_to_studentListFragment"
+            app:destination="@id/studentListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUs"
+        android:name="com.android.studentattendancerecorder.aboutUs"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
 </navigation>

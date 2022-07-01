@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/drawable/ic_calendar.xml" value="0.1715" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/drawable/rounded_edittext.xml" value="0.2105" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/classlist.xml" value="0.33" />
@@ -11,7 +12,7 @@
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_about_us.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_about_us_fragment.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_first.xml" value="0.25" />
-        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_print_attendance.xml" value="0.22" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_print_attendance.xml" value="0.33" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_second.xml" value="0.2" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_sign_up_fragment.xml" value="0.22" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_student_list.xml" value="0.25" />
