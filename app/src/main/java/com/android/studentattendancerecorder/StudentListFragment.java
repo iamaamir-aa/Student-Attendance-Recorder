@@ -1,5 +1,6 @@
 package com.android.studentattendancerecorder;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +30,7 @@ import com.android.studentattendancerecorder.Model.StudentsDetail;
 import com.android.studentattendancerecorder.databinding.FragmentSecondBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class StudentListFragment extends Fragment {
@@ -34,8 +39,8 @@ public class StudentListFragment extends Fragment {
     private RecyclerView recyclerViewStudent;
     private RecyclerViewAdapterForStudentList recyclerViewAdapterForStudentList;
     private ArrayList<StudentsDetail> studentDetailsArrayList;
-    private ArrayAdapter<String> arrayAdapter;
-
+    int year,month,date;
+DatePickerDialog datePickerDialog;
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_student,menu);
@@ -48,6 +53,14 @@ public  void updateUI(){
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.print:updateUI();return true;
+            case R.id.changeDate:
+                final Calendar calendar=Calendar.getInstance();
+                year=calendar.get(Calendar.YEAR);
+                month=calendar.get(Calendar.MONTH)+1;
+                date=calendar.get(Calendar.DATE);
+                datePickerDialog=new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> Log.d("DATE PICKED:",dayOfMonth+"/"+month+"/"+year),year,month,date);
+                datePickerDialog.show();
+                ;return true;
             default: return false;
         }
     }
@@ -67,7 +80,8 @@ public  void updateUI(){
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        String KEY=StudentListFragmentArgs.fromBundle(getArguments()).getClassID();
+        Log.d("KEY:",KEY);
 
         recyclerViewStudent = view.findViewById(R.id.recyclerViewStudentList);
         studentDetailsArrayList=new ArrayList<StudentsDetail>();

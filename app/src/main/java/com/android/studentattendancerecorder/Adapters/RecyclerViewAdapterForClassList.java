@@ -67,7 +67,7 @@ holder.class_name.setText(classAndSubjectDetails.getClass_name());
         @Override
         public void onClick(View v) {
             SecondFragmentDirections.ActionSecondFragmentToStudentListFragment action=SecondFragmentDirections.actionSecondFragmentToStudentListFragment();
-            action.setPosition(getLayoutPosition());
+            action.setClassID(classAndSubjectDetailsList.get(getLayoutPosition()).getId());
             NavHostFragment.findNavController(fragment).navigate(action);
 
         }

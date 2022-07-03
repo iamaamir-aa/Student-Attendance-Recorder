@@ -3,6 +3,9 @@
 
     <item android:title="Item" />
     <item
+        android:id="@+id/changeDate"
+        android:title="Change Date" />
+    <item
         android:id="@+id/print"
         android:title="Print" />
 </menu>

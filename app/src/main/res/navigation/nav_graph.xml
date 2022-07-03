@@ -45,9 +45,10 @@
             android:id="@+id/action_studentListFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
         <argument
-            android:name="position"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:name="classID"
+            app:argType="string"
+            android:defaultValue="null"
+            app:nullable="true" />
         <action
             android:id="@+id/action_studentListFragment_to_printAttendance"
             app:destination="@id/printAttendance" />
