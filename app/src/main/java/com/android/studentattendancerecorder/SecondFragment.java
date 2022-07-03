@@ -1,6 +1,7 @@
 package com.android.studentattendancerecorder;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,20 +25,36 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForClassList;
 import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
 import com.android.studentattendancerecorder.databinding.FragmentSecondBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-public class SecondFragment extends Fragment {
+public class SecondFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerViewClass;
     private RecyclerViewAdapterForClassList recyclerViewAdapterForClassList;
-    private ArrayList<ClassAndSubjectDetails> classAndSubjectDetailsArrayList;
-    private ArrayAdapter<String> arrayAdapter;
+    private List<ClassAndSubjectDetails> classAndSubjectDetailsArrayList;
     private FragmentSecondBinding binding;
     private FirebaseAuth mAuth;
+    private ConstraintLayout constraintLayoutClassList;
+    private LinearLayout linearLayoutCreateClass;
+    private DatabaseReference databeseRef;
+    Button addButton,cancelButton;
+    EditText className,subjectName;
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -55,9 +72,29 @@ public class SecondFragment extends Fragment {
                 Toast.makeText(getActivity(), "Incorrect Selection", Toast.LENGTH_SHORT).show();
                 break;
         }
-
         return false;
     }
+    private void updateList(){
+        databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    String key=dataSnapshot.getRef().getKey();
+                    String class_name=dataSnapshot.child("class_name").getValue().toString();
+                    String subject_name=dataSnapshot.child("subject_name").getValue().toString();
+                    ClassAndSubjectDetails newClass=new ClassAndSubjectDetails(class_name,subject_name,key);
+                    classAndSubjectDetailsArrayList.add(newClass);
+                }
+                recyclerViewAdapterForClassList.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void updateUI(FirebaseUser user){
         if(user==null) {
             NavHostFragment.findNavController(SecondFragment.this)
@@ -83,80 +120,26 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAuth=FirebaseAuth.getInstance();
+        databeseRef=FirebaseDatabase.getInstance().getReference("USERS");
+
         recyclerViewClass = view.findViewById(R.id.recyclerViewClass);
         recyclerViewClass.setHasFixedSize(true);
         recyclerViewClass.setLayoutManager(new LinearLayoutManager(getActivity()));
-        classAndSubjectDetailsArrayList = new ArrayList<ClassAndSubjectDetails>();
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA I", "Operating System"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA II", "Oops"));
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA II", "Oops"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("M.Tech", "System Design"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("B.tech.", "Computer Network"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA", "Teleport System"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA II", "Operating System"));
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA II", "Oops"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("M.Tech", "System Design"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("B.tech.", "Computer Network"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA", "Teleport System"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA II", "Operating System"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("M.Tech", "System Design"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("B.tech.", "Computer Network"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA", "Teleport System"));
-
-        classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails("MCA II", "Operating System"));
+        classAndSubjectDetailsArrayList = new ArrayList<>();
+        databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS");
         recyclerViewAdapterForClassList = new RecyclerViewAdapterForClassList(getContext(), classAndSubjectDetailsArrayList, SecondFragment.this);
         recyclerViewClass.setAdapter(recyclerViewAdapterForClassList);
-        ConstraintLayout constraintLayoutClassList = view.findViewById(R.id.constraintLayoutClass);
-        final LinearLayout linearLayoutCreateClass = view.findViewById(R.id.linearLayoutAddingClass);
-        Button cancelButton = view.findViewById(R.id.cancelButton);
-        Button addButton = view.findViewById(R.id.addButton);
+        updateList();
+        constraintLayoutClassList = view.findViewById(R.id.constraintLayoutClass);
+        linearLayoutCreateClass = view.findViewById(R.id.linearLayoutAddingClass);
+        cancelButton = view.findViewById(R.id.cancelButton);
+        addButton = view.findViewById(R.id.addButton);
+        className = view.findViewById(R.id.editTextClassName);
+        subjectName = view.findViewById(R.id.editTextSubjectName);
         FloatingActionButton fabToCreateClass = view.findViewById(R.id.floatingActionButtonToAddClass);
-        fabToCreateClass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                constraintLayoutClassList.setVisibility(View.INVISIBLE);
-                linearLayoutCreateClass.setVisibility(View.VISIBLE);
-            }
-        });
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                constraintLayoutClassList.setVisibility(View.VISIBLE);
-                linearLayoutCreateClass.setVisibility(View.INVISIBLE);
-            }
-        });
-        EditText className = view.findViewById(R.id.editTextClassName);
-
-        EditText subjectName = view.findViewById(R.id.editTextSubjectName);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if(className.getText().toString()!="" || subjectName.getText().toString() !="" ){
-                    classAndSubjectDetailsArrayList.add(new ClassAndSubjectDetails(className.getText().toString(),
-                            subjectName.getText().toString()));
-                    recyclerViewAdapterForClassList.notifyDataSetChanged();
-            //    }
-
-                linearLayoutCreateClass.setVisibility(View.INVISIBLE);
-                constraintLayoutClassList.setVisibility(View.VISIBLE);
-
-
-            }
-        });
+        fabToCreateClass.setOnClickListener(this);
+        cancelButton.setOnClickListener(this);
+        addButton.setOnClickListener(this);
     }
 
 
@@ -167,4 +150,27 @@ public class SecondFragment extends Fragment {
         binding = null;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.floatingActionButtonToAddClass: {
+                constraintLayoutClassList.setVisibility(View.INVISIBLE);
+                linearLayoutCreateClass.setVisibility(View.VISIBLE);
+                break;
+            }
+            case R.id.addButton:{
+                ClassAndSubjectDetails newClass=new ClassAndSubjectDetails(className.getText().toString(),subjectName.getText().toString());
+                classAndSubjectDetailsArrayList.add(newClass);
+                databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").push().setValue(newClass);
+                recyclerViewAdapterForClassList.notifyDataSetChanged();
+                linearLayoutCreateClass.setVisibility(View.INVISIBLE);
+                constraintLayoutClassList.setVisibility(View.VISIBLE);
+            } break;
+            case R.id.cancelButton: {
+                constraintLayoutClassList.setVisibility(View.VISIBLE);
+                linearLayoutCreateClass.setVisibility(View.INVISIBLE);
+            }break;
+            default:break;
+        }
+    }
 }
