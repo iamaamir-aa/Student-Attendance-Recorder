@@ -11,6 +11,6 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="36dp"
         android:gravity="bottom|center_horizontal"
-        android:text="Developer- Aamir Ansari" />
+        android:text="Developer- Aamir Ansari, Salman Khurshid" />
 
 </FrameLayout>

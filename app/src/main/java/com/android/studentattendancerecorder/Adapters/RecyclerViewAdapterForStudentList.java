@@ -1,6 +1,7 @@
 package com.android.studentattendancerecorder.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,8 @@ public class RecyclerViewAdapterForStudentList extends RecyclerView.Adapter<Recy
     private Context context;
     private List<StudentsDetail> studentDetails;
     private Fragment fragment;
+
+
 
     public RecyclerViewAdapterForStudentList(Context context, List<StudentsDetail> studentDetails, Fragment fragment) {
         this.context = context;
@@ -40,7 +44,7 @@ public class RecyclerViewAdapterForStudentList extends RecyclerView.Adapter<Recy
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapterForStudentList.ViewHolder2 holder, int position) {
         StudentsDetail studentsDetail = studentDetails.get(position);
-        holder.enrollment_number.setText(studentsDetail.getEnrollmentNumber());
+        //holder.enrollment_number.setText(studentsDetail.getEnrollmentNumber());
         holder.student_name.setText(studentsDetail.getStudentName());
 
     }
@@ -54,17 +58,29 @@ public class RecyclerViewAdapterForStudentList extends RecyclerView.Adapter<Recy
     public class ViewHolder2 extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView student_name;
         public TextView enrollment_number;
-
+        public ConstraintLayout studentItemLayout;
+        int selection=1;
         public ViewHolder2(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
+studentItemLayout=itemView.findViewById(R.id.studentItem);
             student_name = itemView.findViewById(R.id.studentName);
-            enrollment_number = itemView.findViewById(R.id.enrollmentNumber);
+            itemView.setOnClickListener(this);
+
         }
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), "O BHAI MOJ KRDI", Toast.LENGTH_SHORT).show();
+            if (selection==1){
+                studentItemLayout.setBackgroundResource(R.drawable.rounded_edittext_green);
+                selection=2;
+            }
+            else if(selection==2){
+                studentItemLayout.setBackgroundResource(R.drawable.rounded_edittext_red);
+                selection=0;
+            }else if(selection==0){
+                studentItemLayout.setBackgroundResource(R.drawable.rounded_edittext);
+selection=1;
+            }
 
         }
     }

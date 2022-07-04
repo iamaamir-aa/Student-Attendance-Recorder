@@ -13,7 +13,9 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_FirstFragment_to_sign_up_fragment"
             app:destination="@id/sign_up_fragment" />
@@ -30,7 +32,7 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment"
-            app:popUpTo="@id/FirstFragment"
+            app:popUpTo="@id/SecondFragment"
             app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_SecondFragment_to_studentListFragment"
@@ -57,10 +59,11 @@
         android:id="@+id/sign_up_fragment"
         android:name="com.android.studentattendancerecorder.sign_up_fragment"
         android:label="fragment_sign_up_fragment"
-        tools:layout="@layout/fragment_sign_up_fragment" >
+        tools:layout="@layout/fragment_sign_up_fragment">
         <action
             android:id="@+id/action_sign_up_fragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/FirstFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/printAttendance"
