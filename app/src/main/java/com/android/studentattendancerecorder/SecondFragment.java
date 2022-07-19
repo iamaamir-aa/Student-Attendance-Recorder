@@ -1,5 +1,6 @@
 package com.android.studentattendancerecorder;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +41,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -55,7 +59,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     private DatabaseReference databeseRef;
     Button addButton,cancelButton;
     EditText className,subjectName;
-
+    TextView selectStartDate;
+    int year,month,date;
+    DatePickerDialog datePickerDialog;
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 
@@ -121,7 +127,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         mAuth=FirebaseAuth.getInstance();
         databeseRef=FirebaseDatabase.getInstance().getReference("USERS");
-
         recyclerViewClass = view.findViewById(R.id.recyclerViewClass);
         recyclerViewClass.setHasFixedSize(true);
         recyclerViewClass.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -140,6 +145,12 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         fabToCreateClass.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
         addButton.setOnClickListener(this);
+        final Calendar calendar=Calendar.getInstance();
+        year=calendar.get(Calendar.YEAR);
+        month=calendar.get(Calendar.MONTH)+1;
+        date=calendar.get(Calendar.DATE);
+        selectStartDate=view.findViewById(R.id.selectStartDate);
+        selectStartDate.setOnClickListener(this);
     }
 
 
@@ -169,6 +180,15 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             case R.id.cancelButton: {
                 constraintLayoutClassList.setVisibility(View.VISIBLE);
                 linearLayoutCreateClass.setVisibility(View.INVISIBLE);
+            }break;
+            case R.id.selectStartDate: {
+                datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        selectStartDate.setText(dayOfMonth+"-"+month+"-"+year);
+                    }
+                },year,month,date);
+                datePickerDialog.show();
             }break;
             default:break;
         }

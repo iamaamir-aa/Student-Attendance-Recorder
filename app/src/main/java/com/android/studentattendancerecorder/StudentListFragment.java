@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,15 +16,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForClassList;
 import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForStudentList;
-import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
 import com.android.studentattendancerecorder.Model.StudentsDetail;
 import com.android.studentattendancerecorder.databinding.FragmentSecondBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -88,25 +82,6 @@ public  void updateUI(){
 
         recyclerViewStudent.setHasFixedSize(true);
         recyclerViewStudent.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        studentDetailsArrayList.add(new StudentsDetail("AAMIR ANSARI","20178976",true));
-
-        studentDetailsArrayList.add(new StudentsDetail("AAMIR 2ANSARI","20178976",true));
-
-        studentDetailsArrayList.add(new StudentsDetail("AAMIR 3ANSARI","20178976",true));
-
-        studentDetailsArrayList.add(new StudentsDetail("AAMIR 4ANSARI","20178976",true));
-
-        studentDetailsArrayList.add(new StudentsDetail("AAMIR 5ANSARI","20178976",true));
-
-        studentDetailsArrayList.add(new StudentsDetail("AAMIR 6ANSARI","20178976",true));
-
-        studentDetailsArrayList.add(new StudentsDetail("AAMIR 7ANSARI","20178976",true));
-
-        studentDetailsArrayList.add(new StudentsDetail("AAMIR 8ANSARI","20178976",true));
-
-        studentDetailsArrayList.add(new StudentsDetail("AAMIR 9ANSARI","20178976",true));
-
         recyclerViewAdapterForStudentList=new RecyclerViewAdapterForStudentList(getContext(),studentDetailsArrayList,StudentListFragment.this);
         recyclerViewStudent.setAdapter(recyclerViewAdapterForStudentList);
 
@@ -147,27 +122,6 @@ public  void updateUI(){
 
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*TextView countTV=view.findViewById(R.id.tv);
-        int count=StudentListFragmentArgs.fromBundle(getArguments()).getPosition();
-        countTV.setText(String.valueOf(count));
-        */
-
-
-
 
     }
 

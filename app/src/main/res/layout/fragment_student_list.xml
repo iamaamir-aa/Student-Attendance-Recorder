@@ -12,12 +12,61 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutStudentList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#E1DCDC"
+                android:gravity="center_horizontal"
+                android:padding="6dp"
+                android:text="05-07-2022"
+                android:textAllCaps="true"
+                android:textColor="#070000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="x1" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="x2" />
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="x3" />
+            </RadioGroup>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewStudentList"
@@ -25,8 +74,10 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintVertical_bias="0.0">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -49,7 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:background="#ECCFCF"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="#A8DBEE"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="12dp"
@@ -57,7 +109,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/textView2"
@@ -74,12 +127,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Student Name"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTextStudentName"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/rounded_edittext"
             android:ems="10"
             android:inputType="textPersonName"
             android:minHeight="48dp"
@@ -90,12 +147,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Enrollment Number"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTextEnrollmentNumber"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/rounded_edittext"
             android:ems="10"
             android:inputType="textPersonName"
             android:minHeight="48dp"

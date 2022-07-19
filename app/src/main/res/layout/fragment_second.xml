@@ -46,7 +46,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_edittext"
-        android:backgroundTint="#E1D6F4"
+        android:backgroundTint="#A8DBEE"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="12dp"
@@ -80,7 +80,7 @@
             android:id="@+id/editTextClassName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="6dp"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
             android:hint="Eg. MCA"
@@ -107,32 +107,49 @@
             android:inputType="textPersonName"
             android:padding="10dp" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView15"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:text="Started on"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Strength"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/selectStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_edittext"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_calendar"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="20-10-1999"
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_edittext"
-                android:ems="10"
-                android:hint="58"
-                android:inputType="textPersonName"
-                android:padding="10dp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Strength"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:hint="58"
+            android:inputType="number|textPersonName"
+            android:padding="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

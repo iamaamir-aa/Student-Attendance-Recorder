@@ -4,7 +4,8 @@
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
-        maven { url 'https://jitpack.io' }
+        maven { url 'https://jitpack.io'
+            'https://repo.itextsupport.com/android'}
     }
 }*/
 rootProject.name = "Student Attendance Recorder"
