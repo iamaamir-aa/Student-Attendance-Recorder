@@ -185,6 +185,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 constraintLayoutClassList.setVisibility(View.VISIBLE);
             } break;
             case R.id.cancelButton: {
+
                 constraintLayoutClassList.setVisibility(View.VISIBLE);
                 linearLayoutCreateClass.setVisibility(View.INVISIBLE);
             }break;
