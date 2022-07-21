@@ -29,6 +29,7 @@ import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForClas
 import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
 import com.android.studentattendancerecorder.databinding.FragmentSecondBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -172,7 +173,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             case R.id.addButton:{
                 ClassAndSubjectDetails newClass=new ClassAndSubjectDetails(className.getText().toString(),subjectName.getText().toString());
                 classAndSubjectDetailsArrayList.add(newClass);
-                databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").push().setValue(newClass);
+
+                 DatabaseReference newRef=databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").push();
+                 String key=newRef.getKey();
+                 Log.d("AAMIRKEY",key);
+                databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(key).setValue(newClass);
+
+
                 recyclerViewAdapterForClassList.notifyDataSetChanged();
                 linearLayoutCreateClass.setVisibility(View.INVISIBLE);
                 constraintLayoutClassList.setVisibility(View.VISIBLE);

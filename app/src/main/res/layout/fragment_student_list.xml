@@ -29,12 +29,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/studentListDateTextView"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#E1DCDC"
-                android:gravity="center_horizontal"
+                android:gravity="center_horizontal|center_vertical"
                 android:padding="6dp"
                 android:text="05-07-2022"
                 android:textAllCaps="true"
@@ -43,25 +43,30 @@
                 android:textStyle="bold" />
 
             <RadioGroup
+                android:id="@+id/radioGroupNumberOfAtt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
+                android:background="#E1DCDC"
+                android:gravity="center_horizontal|center_vertical"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/radioButtonX1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
+                    android:checked="true"
                     android:text="x1" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/radioButtonX2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="x2" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/radioButtonX3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="x3" />
@@ -140,6 +145,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:minHeight="48dp"
+            android:padding="6dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
@@ -160,6 +166,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:minHeight="48dp"
+            android:padding="6dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <LinearLayout

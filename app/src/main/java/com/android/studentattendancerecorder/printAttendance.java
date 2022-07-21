@@ -136,6 +136,7 @@ Button generatePdfButton;
         PdfPCell cell9 = new PdfPCell(new Paragraph("Cell 9"));
         //PdfPCell cell3 = new PdfPCell(new Paragraph("Cell 3"));
 
+        table.addCell("");
         table.addCell(cell1);
         table.addCell(cell2);
         table.addCell(cell3);

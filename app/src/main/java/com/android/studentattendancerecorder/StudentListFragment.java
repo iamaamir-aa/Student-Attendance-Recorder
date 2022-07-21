@@ -19,6 +19,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForStudentList;
 import com.android.studentattendancerecorder.Model.StudentsDetail;
 import com.android.studentattendancerecorder.databinding.FragmentSecondBinding;
@@ -34,7 +38,9 @@ public class StudentListFragment extends Fragment {
     private RecyclerViewAdapterForStudentList recyclerViewAdapterForStudentList;
     private ArrayList<StudentsDetail> studentDetailsArrayList;
     int year,month,date;
-DatePickerDialog datePickerDialog;
+    DatePickerDialog datePickerDialog;
+    RadioGroup radioGroup;
+    TextView changeDateTextView;
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_student,menu);
@@ -52,7 +58,7 @@ public  void updateUI(){
                 year=calendar.get(Calendar.YEAR);
                 month=calendar.get(Calendar.MONTH)+1;
                 date=calendar.get(Calendar.DATE);
-                datePickerDialog=new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> Log.d("DATE PICKED:",dayOfMonth+"/"+month+"/"+year),year,month,date);
+                datePickerDialog=new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> changeDateTextView.setText(dayOfMonth+"-"+(month+1)+"-"+year),year,month,date);
                 datePickerDialog.show();
                 ;return true;
             default: return false;
@@ -74,9 +80,26 @@ public  void updateUI(){
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String KEY=StudentListFragmentArgs.fromBundle(getArguments()).getClassID();
-        Log.d("KEY:",KEY);
+       // String KEY=StudentListFragmentArgs.fromBundle(getArguments()).getClassID();
+       // Log.d("KEY:",KEY);
+radioGroup=view.findViewById(R.id.radioGroupNumberOfAtt);
+changeDateTextView=view.findViewById(R.id.studentListDateTextView);
+radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+if(checkedId==R.id.radioButtonX1){
+    Toast.makeText(getActivity(), "X1", Toast.LENGTH_SHORT).show();
+}if(checkedId==R.id.radioButtonX2){
 
+    AddClassDialogueFragment dialogueFragment=new AddClassDialogueFragment();
+    dialogueFragment.show(getParentFragmentManager(),null);
+
+        }if(checkedId==R.id.radioButtonX3){
+            Toast.makeText(getActivity(), "X3", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+});
         recyclerViewStudent = view.findViewById(R.id.recyclerViewStudentList);
         studentDetailsArrayList=new ArrayList<StudentsDetail>();
 
@@ -95,21 +118,24 @@ public  void updateUI(){
         fabToCreateStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 constraintLayoutStudentList.setVisibility(View.INVISIBLE);
                 linearLayoutCreateStudent.setVisibility(View.VISIBLE);
-            }
-        });
-        cancelStudentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                constraintLayoutStudentList.setVisibility(View.VISIBLE);
-                linearLayoutCreateStudent.setVisibility(View.INVISIBLE);
             }
         });
         EditText studentName = view.findViewById(R.id.editTextStudentName);
 
         EditText enrollmentNumber = view.findViewById(R.id.editTextEnrollmentNumber);
+        cancelStudentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               constraintLayoutStudentList.setVisibility(View.VISIBLE);
+                linearLayoutCreateStudent.setVisibility(View.INVISIBLE);
+                studentName.setText("");
+                enrollmentNumber.setText("");
+            }
+        });
+
         addStudentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +145,8 @@ public  void updateUI(){
                 linearLayoutCreateStudent.setVisibility(View.INVISIBLE);
                 constraintLayoutStudentList.setVisibility(View.VISIBLE);
 
+                studentName.setText("");
+                enrollmentNumber.setText("");
 
             }
         });
