@@ -1,6 +1,8 @@
 package com.android.studentattendancerecorder;
 
 import android.app.DatePickerDialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForClassList;
+import com.android.studentattendancerecorder.DialogueBox.AddClass;
+import com.android.studentattendancerecorder.DialogueBox.AddStudent;
 import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
 import com.android.studentattendancerecorder.databinding.FragmentSecondBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,7 +54,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class SecondFragment extends Fragment implements View.OnClickListener {
+public class SecondFragment extends Fragment implements View.OnClickListener, DialogInterface.OnDismissListener {
     private RecyclerView recyclerViewClass;
     private RecyclerViewAdapterForClassList recyclerViewAdapterForClassList;
     private List<ClassAndSubjectDetails> classAndSubjectDetailsArrayList;
@@ -63,6 +68,16 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     TextView selectStartDate;
     int year,month,date;
     DatePickerDialog datePickerDialog;
+    private ProgressBar spinner;
+
+
+public void showSpinner(){
+    spinner.setVisibility(View.VISIBLE);
+}
+public void hideSpinner(){
+    spinner.setVisibility(View.GONE);
+}
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 
@@ -85,6 +100,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                classAndSubjectDetailsArrayList.clear();
                 for(DataSnapshot dataSnapshot:snapshot.getChildren()){
                     String key=dataSnapshot.getRef().getKey();
                     String class_name=dataSnapshot.child("class_name").getValue().toString();
@@ -93,6 +109,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                     classAndSubjectDetailsArrayList.add(newClass);
                 }
                 recyclerViewAdapterForClassList.notifyDataSetChanged();
+                spinner.setVisibility(View.GONE);
+
             }
 
             @Override
@@ -126,6 +144,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        spinner = (ProgressBar)view.findViewById(R.id.progressBar);
+showSpinner();
         mAuth=FirebaseAuth.getInstance();
         databeseRef=FirebaseDatabase.getInstance().getReference("USERS");
         recyclerViewClass = view.findViewById(R.id.recyclerViewClass);
@@ -136,6 +156,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         recyclerViewAdapterForClassList = new RecyclerViewAdapterForClassList(getContext(), classAndSubjectDetailsArrayList, SecondFragment.this);
         recyclerViewClass.setAdapter(recyclerViewAdapterForClassList);
         updateList();
+
         constraintLayoutClassList = view.findViewById(R.id.constraintLayoutClass);
         linearLayoutCreateClass = view.findViewById(R.id.linearLayoutAddingClass);
         cancelButton = view.findViewById(R.id.cancelButton);
@@ -166,18 +187,15 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.floatingActionButtonToAddClass: {
-                constraintLayoutClassList.setVisibility(View.INVISIBLE);
-                linearLayoutCreateClass.setVisibility(View.VISIBLE);
+                AddClass dialogueFragment = new AddClass();
+                dialogueFragment.show(getChildFragmentManager(), "AddClass");
+
+
+                //constraintLayoutClassList.setVisibility(View.INVISIBLE);
+                //linearLayoutCreateClass.setVisibility(View.VISIBLE);
                 break;
             }
-            case R.id.addButton:{
-                ClassAndSubjectDetails newClass=new ClassAndSubjectDetails(className.getText().toString(),subjectName.getText().toString());
-                classAndSubjectDetailsArrayList.add(newClass);
-
-                 DatabaseReference newRef=databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").push();
-                 String key=newRef.getKey();
-                 Log.d("AAMIRKEY",key);
-                databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(key).setValue(newClass);
+          /*  case R.id.addButton:{
 
 
                 recyclerViewAdapterForClassList.notifyDataSetChanged();
@@ -198,7 +216,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 },year,month,date);
                 datePickerDialog.show();
             }break;
-            default:break;
+            default:break;*/
         }
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        showSpinner();
+        updateList();
     }
 }

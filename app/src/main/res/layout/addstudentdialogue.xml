@@ -2,13 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#5FD5E4">
+    android:layout_height="wrap_content">
 
     <LinearLayout
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_edittext"
         android:backgroundTint="#A8DBEE"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -23,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Add New Class"
+            android:text="Add Student"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -31,80 +30,40 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Class Name"
+            android:text="Student Name"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/classNameEditText"
+            android:id="@+id/newStudentName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="6dp"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:hint="Eg. MCA"
             android:inputType="textPersonName"
-            android:padding="10dp" />
+            android:minHeight="48dp"
+            android:padding="6dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Subject"
+            android:text="Enrollment Number"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/subjectNameEditText"
+            android:id="@+id/newEnrollmentNumber"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="6dp"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:hint="Operating Systems"
             android:inputType="textPersonName"
-            android:padding="10dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Started on"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_edittext"
-            android:clickable="true"
-            android:drawableRight="@drawable/ic_calendar"
-            android:gravity="center_horizontal"
-            android:padding="10dp"
-            android:text="20-10-1999"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Strength"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_edittext"
-            android:ems="10"
-            android:hint="58"
-            android:inputType="number|textPersonName"
-            android:padding="10dp" />
+            android:minHeight="48dp"
+            android:padding="6dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,18 +71,18 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/newClassAdd"
+                android:id="@+id/buttonAddStudent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="48dp"
                 android:layout_weight="1"
                 android:text="Add" />
 
             <Button
-                android:id="@+id/newClassCancel"
+
+                android:id="@+id/buttonCancelAddStudent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
+                android:layout_marginLeft="32dp"
                 android:layout_weight="1"
                 android:text="Cancel" />
         </LinearLayout>

@@ -1,6 +1,7 @@
 package com.android.studentattendancerecorder.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,7 @@ holder.class_name.setText(classAndSubjectDetails.getClass_name());
 
         @Override
         public void onClick(View v) {
+            Log.d("ERT","70");
             SecondFragmentDirections.ActionSecondFragmentToStudentListFragment action=SecondFragmentDirections.actionSecondFragmentToStudentListFragment();
             action.setClassID(classAndSubjectDetailsList.get(getLayoutPosition()).getId());
             NavHostFragment.findNavController(fragment).navigate(action);
