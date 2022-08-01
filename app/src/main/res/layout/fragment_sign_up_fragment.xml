@@ -90,6 +90,7 @@
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
             android:background="@drawable/rounded_edittext"
+            android:drawableRight="@drawable/ic_baseline_visibility_24"
             android:ems="10"
             android:inputType="textPassword"
             android:padding="12dp" />
@@ -112,6 +113,7 @@
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
             android:background="@drawable/rounded_edittext"
+            android:drawableRight="@drawable/ic_baseline_visibility_24"
             android:ems="10"
             android:inputType="textPassword"
             android:padding="12dp" />

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
 import com.android.studentattendancerecorder.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -62,9 +63,16 @@ public class AddClass extends DialogFragment implements View.OnClickListener {
             case R.id.newClassAdd:{
                 String class_name=((EditText)v1.findViewById(R.id.classNameEditText)).getText().toString();
                 String subject_name=((EditText)v1.findViewById(R.id.subjectNameEditText)).getText().toString();
-                ClassAndSubjectDetails newClass=new ClassAndSubjectDetails(class_name,subject_name);
-                databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").push().setValue(newClass);
-                dismiss();
+                if((class_name.equals("") || subject_name.equals(""))){
+                    Toast.makeText(getContext(),"Provide all fields",Toast.LENGTH_SHORT).show();
+                }else{
+                    ClassAndSubjectDetails newClass=new ClassAndSubjectDetails(class_name,subject_name);
+                    databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").push().setValue(newClass);
+                    dismiss();
+                }
+
+
+
                 break;
             }
             case R.id.newClassCancel:{

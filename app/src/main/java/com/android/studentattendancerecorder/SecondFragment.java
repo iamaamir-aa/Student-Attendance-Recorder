@@ -1,19 +1,15 @@
 package com.android.studentattendancerecorder;
 
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -30,14 +26,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForClassList;
 import com.android.studentattendancerecorder.DialogueBox.AddClass;
-import com.android.studentattendancerecorder.DialogueBox.AddStudent;
 import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
 import com.android.studentattendancerecorder.databinding.FragmentSecondBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,11 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 public class SecondFragment extends Fragment implements View.OnClickListener, DialogInterface.OnDismissListener {
     private RecyclerView recyclerViewClass;
@@ -62,7 +49,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener, Di
     private FirebaseAuth mAuth;
     private ConstraintLayout constraintLayoutClassList;
     private LinearLayout linearLayoutCreateClass;
-    private DatabaseReference databeseRef;
+    private DatabaseReference databaseRef;
     Button addButton,cancelButton;
     EditText className,subjectName;
     TextView selectStartDate;
@@ -97,7 +84,7 @@ public void hideSpinner(){
         return false;
     }
     private void updateList(){
-        databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 classAndSubjectDetailsArrayList.clear();
@@ -147,12 +134,12 @@ public void hideSpinner(){
         spinner = (ProgressBar)view.findViewById(R.id.progressBar);
 showSpinner();
         mAuth=FirebaseAuth.getInstance();
-        databeseRef=FirebaseDatabase.getInstance().getReference("USERS");
+        databaseRef =FirebaseDatabase.getInstance().getReference("USERS");
         recyclerViewClass = view.findViewById(R.id.recyclerViewClass);
         recyclerViewClass.setHasFixedSize(true);
         recyclerViewClass.setLayoutManager(new LinearLayoutManager(getActivity()));
         classAndSubjectDetailsArrayList = new ArrayList<>();
-        databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS");
+        databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS");
         recyclerViewAdapterForClassList = new RecyclerViewAdapterForClassList(getContext(), classAndSubjectDetailsArrayList, SecondFragment.this);
         recyclerViewClass.setAdapter(recyclerViewAdapterForClassList);
         updateList();
@@ -165,8 +152,6 @@ showSpinner();
         subjectName = view.findViewById(R.id.editTextSubjectName);
         FloatingActionButton fabToCreateClass = view.findViewById(R.id.floatingActionButtonToAddClass);
         fabToCreateClass.setOnClickListener(this);
-        cancelButton.setOnClickListener(this);
-        addButton.setOnClickListener(this);
         final Calendar calendar=Calendar.getInstance();
         year=calendar.get(Calendar.YEAR);
         month=calendar.get(Calendar.MONTH)+1;
@@ -190,33 +175,9 @@ showSpinner();
                 AddClass dialogueFragment = new AddClass();
                 dialogueFragment.show(getChildFragmentManager(), "AddClass");
 
-
-                //constraintLayoutClassList.setVisibility(View.INVISIBLE);
-                //linearLayoutCreateClass.setVisibility(View.VISIBLE);
                 break;
             }
-          /*  case R.id.addButton:{
-
-
-                recyclerViewAdapterForClassList.notifyDataSetChanged();
-                linearLayoutCreateClass.setVisibility(View.INVISIBLE);
-                constraintLayoutClassList.setVisibility(View.VISIBLE);
-            } break;
-            case R.id.cancelButton: {
-
-                constraintLayoutClassList.setVisibility(View.VISIBLE);
-                linearLayoutCreateClass.setVisibility(View.INVISIBLE);
-            }break;
-            case R.id.selectStartDate: {
-                datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        selectStartDate.setText(dayOfMonth+"-"+month+"-"+year);
-                    }
-                },year,month,date);
-                datePickerDialog.show();
-            }break;
-            default:break;*/
+            default:break;
         }
     }
 

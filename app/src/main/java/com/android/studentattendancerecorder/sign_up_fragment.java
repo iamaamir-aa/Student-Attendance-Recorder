@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +30,8 @@ public class sign_up_fragment extends Fragment {
     public EditText emailEditText;
     public EditText passwordEditText;
     private FirebaseAuth mAuth;
+    private EditText confirmPasswordEditText;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +50,34 @@ public class sign_up_fragment extends Fragment {
       mAuth = FirebaseAuth.getInstance();
         emailEditText=view.findViewById(R.id.emailEditText);
         passwordEditText=view.findViewById(R.id.passwordEditText);
+
+        confirmPasswordEditText=view.findViewById(R.id.confirmPasswordEditText);
     saveSignUpButton=view.findViewById(R.id.saveSignUpDetailsButton);
+
+
+
+
+
+
+
+
+
+
+
+
+
     saveSignUpButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             String email=emailEditText.getText().toString();
             String password=passwordEditText.getText().toString();
-        createAccount(email,password);
+            String confirmPassword=confirmPasswordEditText.getText().toString();
+            if(password.equals(confirmPassword)){
+                createAccount(email,password);
+            }else{
+                Snackbar.make(getView(),"PASSWORD NOT MATCHED",Snackbar.LENGTH_SHORT).show();
+            }
+
         }
     });
     }

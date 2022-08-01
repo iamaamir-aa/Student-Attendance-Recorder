@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
 import com.android.studentattendancerecorder.Model.StudentsDetail;
 import com.android.studentattendancerecorder.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -76,12 +78,18 @@ public class AddStudent extends DialogFragment implements View.OnClickListener {
                 studentNameString = studentName.getText().toString();
                 enrollmentNumberString = enrollmentNumber.getText().toString();
 
+                if((studentNameString.equals("") || enrollmentNumberString.equals(""))){
+                    Toast.makeText(getContext(),"Provide all fields",Toast.LENGTH_SHORT).show();
+                }else{
+                    DatabaseReference newRef = databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(KEY).child("students").push();
+                    String key = newRef.getKey();
+                    StudentsDetail newStudent = new StudentsDetail(studentNameString, enrollmentNumberString, key, new ArrayList<>());
+                    databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(KEY).child("students").child(key).setValue(newStudent);
+                    dismiss();
+                }
 
-                DatabaseReference newRef = databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(KEY).child("students").push();
-                String key = newRef.getKey();
-                StudentsDetail newStudent = new StudentsDetail(studentNameString, enrollmentNumberString, key, new ArrayList<>());
-                databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(KEY).child("students").child(key).setValue(newStudent);
-                dismiss();
+
+
                 break;
             }
 

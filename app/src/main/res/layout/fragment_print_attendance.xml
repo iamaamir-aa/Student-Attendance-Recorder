@@ -7,94 +7,85 @@
     android:isScrollContainer="true"
     tools:context=".printAttendance">
 
-    <LinearLayout
+    <RadioGroup
+        android:id="@+id/radioGroupSelectPrint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/squared_radioitem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RadioButton
+            android:id="@+id/currentMonthRadioButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="From:"
-            android:textColor="#000000"
-            android:textSize="20sp"
+            android:checked="true"
+            android:layoutDirection="rtl"
+            android:padding="12dp"
+            android:text="Current Month"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/black"/>
+
+        <RadioButton
+            android:id="@+id/overallPrintRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:padding="12dp"
+            android:text="Overall Attendance"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"/>
+
+        <RadioButton
+            android:id="@+id/ofMonthRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:padding="12dp"
+            android:text="of Month"
+            android:textAllCaps="true"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
-        <LinearLayout
-
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="42dp"
+            android:layout_margin="12dp"
+            android:background="@drawable/spinner_bg"
+            android:foreground="@drawable/ic_baseline_arrow_drop_down_24"
+            android:foregroundGravity="center_vertical|right"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
-            <TextView
-                android:id="@+id/fromDateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_edittext"
-                android:clickable="true"
-                android:drawableRight="@drawable/ic_calendar"
-                android:gravity="center_horizontal"
-                android:padding="6dp"
-                android:text="20-10-1999"
-                android:textColor="#000000"
-                android:textSize="34sp" />
 
-        </LinearLayout>
+    </RadioGroup>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_weight="0.5"
-            android:gravity="center_horizontal"
-            android:text="To:"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+    <Button
+        android:id="@+id/generatePdfButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_weight="0.5"
+        android:text="Generate pdf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupSelectPrint" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/toDateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_edittext"
-                    android:clickable="true"
-                    android:drawableRight="@drawable/ic_calendar"
-                    android:gravity="center_horizontal"
-                    android:padding="6dp"
-                    android:text="20-10-1999"
-                    android:textColor="#000000"
-                    android:textSize="34sp" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/generatePdfButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_weight="0.5"
-            android:text="Generate pdf" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,13 +19,15 @@ import com.android.studentattendancerecorder.Model.StudentsDetail;
 import com.android.studentattendancerecorder.R;
 import com.android.studentattendancerecorder.SecondFragmentDirections;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RecyclerViewAdapterForStudentList extends RecyclerView.Adapter<RecyclerViewAdapterForStudentList.ViewHolder2> {
     private Context context;
     private List<StudentsDetail> studentDetails;
     private Fragment fragment;
-
+    private ArrayList<String> num;
 
 
     public RecyclerViewAdapterForStudentList(Context context, List<StudentsDetail> studentDetails, Fragment fragment) {
@@ -79,7 +81,7 @@ studentItemLayout=itemView.findViewById(R.id.studentItem);
                 selection=0;
             }else if(selection==0){
                 studentItemLayout.setBackgroundResource(R.drawable.rounded_edittext);
-selection=1;
+                selection=1;
             }
 
         }
