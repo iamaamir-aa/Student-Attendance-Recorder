@@ -1,39 +1,31 @@
 package com.android.studentattendancerecorder;
 
-import static android.content.DialogInterface.*;
-
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.studentattendancerecorder.Adapters.RecyclerViewAdapterForStudentList;
-import com.android.studentattendancerecorder.DialogueBox.AddClass;
 import com.android.studentattendancerecorder.DialogueBox.AddStudent;
-import com.android.studentattendancerecorder.Model.ClassAndSubjectDetails;
+import com.android.studentattendancerecorder.Model.Dates;
 import com.android.studentattendancerecorder.Model.StudentsDetail;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,10 +50,11 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
     RadioGroup radioGroup;
     TextView changeDateTextView;
     private FirebaseAuth mAuth;
-    private DatabaseReference databeseRef;
+    private DatabaseReference databaseRef;
     private String KEY;
 
     private ProgressBar spinner;
+    private TextView defaultDate;
 
 
     public void showSpinner(){
@@ -85,7 +78,7 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
 
     private void updateList(int i) {
         showSpinner();
-        databeseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(KEY).child("students").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(KEY).child("students").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 studentDetailsArrayList.clear();
@@ -93,7 +86,25 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
                     String key = dataSnapshot.getRef().getKey();
                     String studentName = dataSnapshot.child("studentName").getValue().toString();
                     String enrollmentNumber = dataSnapshot.child("enrollmentNumber").getValue().toString();
-                    StudentsDetail newClass = new StudentsDetail(studentName, enrollmentNumber, key, null);
+                    ArrayList<Dates> ran=new ArrayList<>();
+System.out.println(key);
+                    for(DataSnapshot d:snapshot.child(key).child("DATES").getChildren()){
+                       String s=d.getRef().getKey();
+                       System.out.println(s);
+                       int dayParse=Integer.parseInt(s.substring(0,2));
+                       int monthParse=Integer.parseInt(s.substring(3,5));
+                       int yearParse=Integer.parseInt(s.substring(6,10));
+                       int noOfAtt=Integer.parseInt(d.child("attendance").getValue().toString());
+                       System.out.println(dayParse+"/"+monthParse+"/"+yearParse+"-"+noOfAtt);
+
+                       ran.add(new Dates(yearParse,monthParse,dayParse,noOfAtt));
+                    }
+                    System.out.println(ran.isEmpty());
+
+
+                    StudentsDetail newClass = new StudentsDetail(studentName, enrollmentNumber, key, ran);
+
+
                     studentDetailsArrayList.add(newClass);
 
                 }
@@ -117,11 +128,30 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
             case R.id.changeDate:
                 final Calendar calendar = Calendar.getInstance();
                 year = calendar.get(Calendar.YEAR);
-                month = calendar.get(Calendar.MONTH) + 1;
+                month = calendar.get(Calendar.MONTH) ;
                 date = calendar.get(Calendar.DATE);
-                datePickerDialog = new DatePickerDialog(getContext(), (view, year, month, dayOfMonth) -> changeDateTextView.setText(dayOfMonth + "-" + (month + 1) + "-" + year), year, month, date);
-                datePickerDialog.show();
+datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month++;
+        recyclerViewAdapterForStudentList = new RecyclerViewAdapterForStudentList(getContext(),
+                studentDetailsArrayList, StudentListFragment.this,
+                new Dates(year,month,dayOfMonth,0),KEY);
+        recyclerViewStudent.setHasFixedSize(true);
+       recyclerViewStudent.setLayoutManager(new LinearLayoutManager(getActivity()));
+      recyclerViewStudent.setAdapter(recyclerViewAdapterForStudentList);
+        defaultDate.setText(dayOfMonth+"-"+month+"-"+year);
+        updateList(0);
+    }
+},year,month,date);
+datePickerDialog.show();
                 ;
+
+
+
+
+
+
                 return true;
             case R.id.save:{
 
@@ -150,15 +180,25 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
         //Initialization
         spinner = (ProgressBar)view.findViewById(R.id.progressBar2);
         mAuth = FirebaseAuth.getInstance();
-        databeseRef = FirebaseDatabase.getInstance().getReference("USERS");
-        Log.d("ERY","138");
+        databaseRef = FirebaseDatabase.getInstance().getReference("USERS");
         KEY = StudentListFragmentArgs.fromBundle(getArguments()).getClassID();
         studentDetailsArrayList = new ArrayList<StudentsDetail>();
         FloatingActionButton fabToCreateStudent = view.findViewById(R.id.floatingActionButtonAddStudent);
         radioGroup = view.findViewById(R.id.radioGroupNumberOfAtt);
         changeDateTextView = view.findViewById(R.id.studentListDateTextView);
         recyclerViewStudent = view.findViewById(R.id.recyclerViewStudentList);
-        recyclerViewAdapterForStudentList = new RecyclerViewAdapterForStudentList(getContext(), studentDetailsArrayList, StudentListFragment.this);
+
+
+        final Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        date = calendar.get(Calendar.DATE);
+
+ defaultDate=view.findViewById(R.id.studentListDateTextView);
+defaultDate.setText(date+"-"+month+"-"+year);
+        Dates date1=new Dates(year,month,date,0);
+
+        recyclerViewAdapterForStudentList = new RecyclerViewAdapterForStudentList(getContext(), studentDetailsArrayList, StudentListFragment.this,date1,KEY);
 
         updateList(1);
 
@@ -206,5 +246,9 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
                 break;
             }
         }
+
+
+
+
     }
 }

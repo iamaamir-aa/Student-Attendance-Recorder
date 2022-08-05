@@ -6,21 +6,21 @@ public class StudentsDetail {
     private String studentName;
     private String enrollmentNumber;
     private String id;
-    private ArrayList<Dates> dates;
+    private ArrayList<Dates> date;
 
     public StudentsDetail(String studentName, String enrollmentNumber, String id, ArrayList<Dates> dates) {
         this.studentName = studentName;
         this.enrollmentNumber = enrollmentNumber;
         this.id = id;
-        this.dates = dates;
+        this.date = dates;
     }
 
     public ArrayList<Dates> getDates() {
-        return dates;
+        return date;
     }
 
     public void setDates(ArrayList<Dates> dates) {
-        this.dates = dates;
+        this.date = dates;
     }
 
 
