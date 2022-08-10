@@ -9,13 +9,34 @@ public class ClassAndSubjectDetails {
     private String subject_name;
     private String id;
     private ArrayList<StudentsDetail> students;
+    private String classStarted;
+    private int strength;
 
-    public ClassAndSubjectDetails(String class_name, String subject_name, String id, ArrayList<StudentsDetail> students) {
+    public String getClassStarted() {
+        return classStarted;
+    }
+
+    public void setClassStarted(String classStarted) {
+        this.classStarted = classStarted;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public ClassAndSubjectDetails(String class_name, String subject_name, String id, ArrayList<StudentsDetail> students, String classStarted, int strength) {
         this.class_name = class_name;
         this.subject_name = subject_name;
         this.id = id;
         this.students = students;
+        this.classStarted = classStarted;
+        this.strength = strength;
     }
+
 
     public ArrayList<StudentsDetail> getStudents() {
         return students;
@@ -23,11 +44,6 @@ public class ClassAndSubjectDetails {
 
     public void setStudents(ArrayList<StudentsDetail> students) {
         this.students = students;
-    }
-
-    public ClassAndSubjectDetails(String aClass, String subject) {
-        class_name = aClass;
-        subject_name = subject;
     }
 
     public ClassAndSubjectDetails(String class_name, String subject_name, String id) {

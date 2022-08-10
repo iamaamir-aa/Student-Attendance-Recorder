@@ -70,9 +70,15 @@
         android:name="com.android.studentattendancerecorder.printAttendance"
         android:label="fragment_print_attendance"
         tools:layout="@layout/fragment_print_attendance" >
+
         <action
             android:id="@+id/action_printAttendance_to_studentListFragment"
             app:destination="@id/studentListFragment" />
+        <argument
+            android:name="classID"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
     </fragment>
     <fragment
         android:id="@+id/aboutUs"

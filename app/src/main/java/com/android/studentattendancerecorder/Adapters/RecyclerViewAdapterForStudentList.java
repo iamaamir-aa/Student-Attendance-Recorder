@@ -138,7 +138,7 @@ holder.selection=2;
                 selection=0;
             }else if(selection==0){
                 studentItemLayout.setBackgroundResource(R.drawable.rounded_edittext);
-                databaseRef.child(USER_ID).child("CLASS").child(CLASS_ID).child("students").child(studentsDetail.getId()).child("DATES").child(currentDate).child("attendance").setValue(0);
+                databaseRef.child(USER_ID).child("CLASS").child(CLASS_ID).child("students").child(studentsDetail.getId()).child("DATES").child(currentDate).child("attendance").setValue(2);
                 selection=1;
             }
 

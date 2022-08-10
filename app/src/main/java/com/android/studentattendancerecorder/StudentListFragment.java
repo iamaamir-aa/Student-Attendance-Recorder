@@ -51,7 +51,7 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
     TextView changeDateTextView;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseRef;
-    private String KEY;
+    private String CLASS_ID;
 
     private ProgressBar spinner;
     private TextView defaultDate;
@@ -71,14 +71,16 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
     }
 
     public void updateUI() {
+        Bundle bundle = new Bundle();
+        bundle.putString("classID", CLASS_ID);
         NavHostFragment.findNavController(StudentListFragment.this)
-                .navigate(R.id.action_studentListFragment_to_printAttendance);
+                .navigate(R.id.action_studentListFragment_to_printAttendance,bundle);
     }
 
 
     private void updateList(int i) {
         showSpinner();
-        databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(KEY).child("students").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(CLASS_ID).child("students").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 studentDetailsArrayList.clear();
@@ -136,7 +138,7 @@ datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateS
         month++;
         recyclerViewAdapterForStudentList = new RecyclerViewAdapterForStudentList(getContext(),
                 studentDetailsArrayList, StudentListFragment.this,
-                new Dates(year,month,dayOfMonth,0),KEY);
+                new Dates(year,month,dayOfMonth,0),CLASS_ID);
         recyclerViewStudent.setHasFixedSize(true);
        recyclerViewStudent.setLayoutManager(new LinearLayoutManager(getActivity()));
       recyclerViewStudent.setAdapter(recyclerViewAdapterForStudentList);
@@ -181,7 +183,7 @@ datePickerDialog.show();
         spinner = (ProgressBar)view.findViewById(R.id.progressBar2);
         mAuth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference("USERS");
-        KEY = StudentListFragmentArgs.fromBundle(getArguments()).getClassID();
+        CLASS_ID = StudentListFragmentArgs.fromBundle(getArguments()).getClassID();
         studentDetailsArrayList = new ArrayList<StudentsDetail>();
         FloatingActionButton fabToCreateStudent = view.findViewById(R.id.floatingActionButtonAddStudent);
         radioGroup = view.findViewById(R.id.radioGroupNumberOfAtt);
@@ -198,7 +200,7 @@ datePickerDialog.show();
 defaultDate.setText(date+"-"+month+"-"+year);
         Dates date1=new Dates(year,month,date,0);
 
-        recyclerViewAdapterForStudentList = new RecyclerViewAdapterForStudentList(getContext(), studentDetailsArrayList, StudentListFragment.this,date1,KEY);
+        recyclerViewAdapterForStudentList = new RecyclerViewAdapterForStudentList(getContext(), studentDetailsArrayList, StudentListFragment.this,date1,CLASS_ID);
 
         updateList(1);
 
@@ -214,7 +216,7 @@ defaultDate.setText(date+"-"+month+"-"+year);
     }
 
     private void showAddStudentDialog() {
-        AddStudent dialogueFragment = new AddStudent(KEY);
+        AddStudent dialogueFragment = new AddStudent(CLASS_ID);
         dialogueFragment.show(getChildFragmentManager(), "AddStudent");
     }
 
