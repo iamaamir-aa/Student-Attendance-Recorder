@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,11 +36,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 
-public class StudentListFragment extends Fragment implements DialogInterface.OnDismissListener,RadioGroup.OnCheckedChangeListener,View.OnClickListener {
+public class StudentListFragment extends Fragment implements DialogInterface.OnDismissListener, RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
 
     private RecyclerView recyclerViewStudent;
@@ -57,10 +61,11 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
     private TextView defaultDate;
 
 
-    public void showSpinner(){
+    public void showSpinner() {
         spinner.setVisibility(View.VISIBLE);
     }
-    public void hideSpinner(){
+
+    public void hideSpinner() {
         spinner.setVisibility(View.GONE);
     }
 
@@ -74,7 +79,7 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
         Bundle bundle = new Bundle();
         bundle.putString("classID", CLASS_ID);
         NavHostFragment.findNavController(StudentListFragment.this)
-                .navigate(R.id.action_studentListFragment_to_printAttendance,bundle);
+                .navigate(R.id.action_studentListFragment_to_printAttendance, bundle);
     }
 
 
@@ -88,37 +93,40 @@ public class StudentListFragment extends Fragment implements DialogInterface.OnD
                     String key = dataSnapshot.getRef().getKey();
                     String studentName = dataSnapshot.child("studentName").getValue().toString();
                     String enrollmentNumber = dataSnapshot.child("enrollmentNumber").getValue().toString();
-                    ArrayList<Dates> ran=new ArrayList<>();
-System.out.println(key);
-                    for(DataSnapshot d:snapshot.child(key).child("DATES").getChildren()){
-                       String s=d.getRef().getKey();
-                       System.out.println(s);
-                       int dayParse=Integer.parseInt(s.substring(0,2));
-                       int monthParse=Integer.parseInt(s.substring(3,5));
-                       int yearParse=Integer.parseInt(s.substring(6,10));
-                       int noOfAtt=Integer.parseInt(d.child("attendance").getValue().toString());
-                       System.out.println(dayParse+"/"+monthParse+"/"+yearParse+"-"+noOfAtt);
+                    ArrayList<Dates> ran = new ArrayList<>();
+                    System.out.println(key);
+                    for (DataSnapshot d : snapshot.child(key).child("DATES").getChildren()) {
+                        String yearParse = d.getRef().getKey();
+                        for (DataSnapshot e : snapshot.child(key).child("DATES").child(yearParse).getChildren()) {
+                            String monthParse = e.getKey();
+                            for (DataSnapshot f : snapshot.child(key).child("DATES").child(yearParse).child(monthParse).getChildren()) {
+                                String dayParse = f.getKey();
+                                int noOfAtt = Integer.parseInt(f.child("attendance").getValue().toString());
+                                System.out.println(dayParse + "/" + monthParse + "/" + yearParse + "-" + noOfAtt);
+                                ran.add(new Dates(Integer.parseInt(yearParse), Integer.parseInt(monthParse), Integer.parseInt(dayParse), noOfAtt));
+                            }
 
-                       ran.add(new Dates(yearParse,monthParse,dayParse,noOfAtt));
+
+
+
+
+
+                        }
+
                     }
-                    System.out.println(ran.isEmpty());
-
-
                     StudentsDetail newClass = new StudentsDetail(studentName, enrollmentNumber, key, ran);
 
-
-                    studentDetailsArrayList.add(newClass);
-
-                }
+                    studentDetailsArrayList.add(newClass);}
                 recyclerViewAdapterForStudentList.notifyDataSetChanged();
-                hideSpinner();
-            }
+                hideSpinner();}
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+
             }
         });
+
+
     }
 
     @Override
@@ -130,34 +138,49 @@ System.out.println(key);
             case R.id.changeDate:
                 final Calendar calendar = Calendar.getInstance();
                 year = calendar.get(Calendar.YEAR);
-                month = calendar.get(Calendar.MONTH) ;
+                month = calendar.get(Calendar.MONTH);
                 date = calendar.get(Calendar.DATE);
-datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        month++;
-        recyclerViewAdapterForStudentList = new RecyclerViewAdapterForStudentList(getContext(),
-                studentDetailsArrayList, StudentListFragment.this,
-                new Dates(year,month,dayOfMonth,0),CLASS_ID);
-        recyclerViewStudent.setHasFixedSize(true);
-       recyclerViewStudent.setLayoutManager(new LinearLayoutManager(getActivity()));
-      recyclerViewStudent.setAdapter(recyclerViewAdapterForStudentList);
-        defaultDate.setText(dayOfMonth+"-"+month+"-"+year);
-        updateList(0);
-    }
-},year,month,date);
-datePickerDialog.show();
-                ;
+                datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int yearInside, int monthInside, int dayOfMonth) {
+                        monthInside++;
+                        year = yearInside;
+                        month = monthInside;
+                        date = dayOfMonth;
+                        recyclerViewAdapterForStudentList = new RecyclerViewAdapterForStudentList(getContext(),
+                                studentDetailsArrayList, StudentListFragment.this,
+                                new Dates(yearInside, monthInside, dayOfMonth, 0), CLASS_ID);
+                        recyclerViewStudent.setHasFixedSize(true);
+                        recyclerViewStudent.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        recyclerViewStudent.setAdapter(recyclerViewAdapterForStudentList);
+                        defaultDate.setText(dayOfMonth + "-" + monthInside + "-" + yearInside);
+                        updateList(0);
 
 
+                    }
+                }, year, month, date);
 
 
+                databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").child(CLASS_ID).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                      String dateStarted =snapshot.child("classStarted").getValue().toString();
+String[] g=dateStarted.split("-");
+                        calendar.set(Integer.parseInt(g[2]), Integer.parseInt(g[1])-1, Integer.parseInt(g[0]));
+                        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                datePickerDialog.show();
 
 
                 return true;
-            case R.id.save:{
-
-            }
             default:
                 return false;
         }
@@ -180,11 +203,11 @@ datePickerDialog.show();
         super.onViewCreated(view, savedInstanceState);
 
         //Initialization
-        spinner = (ProgressBar)view.findViewById(R.id.progressBar2);
+        spinner = (ProgressBar) view.findViewById(R.id.progressBar2);
         mAuth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference("USERS");
         CLASS_ID = StudentListFragmentArgs.fromBundle(getArguments()).getClassID();
-        studentDetailsArrayList = new ArrayList<StudentsDetail>();
+        studentDetailsArrayList = new ArrayList<>();
         FloatingActionButton fabToCreateStudent = view.findViewById(R.id.floatingActionButtonAddStudent);
         radioGroup = view.findViewById(R.id.radioGroupNumberOfAtt);
         changeDateTextView = view.findViewById(R.id.studentListDateTextView);
@@ -196,11 +219,11 @@ datePickerDialog.show();
         month = calendar.get(Calendar.MONTH) + 1;
         date = calendar.get(Calendar.DATE);
 
- defaultDate=view.findViewById(R.id.studentListDateTextView);
-defaultDate.setText(date+"-"+month+"-"+year);
-        Dates date1=new Dates(year,month,date,0);
+        defaultDate = view.findViewById(R.id.studentListDateTextView);
+        defaultDate.setText(date + "-" + month + "-" + year);
+        Dates date1 = new Dates(year, month, date, 0);
 
-        recyclerViewAdapterForStudentList = new RecyclerViewAdapterForStudentList(getContext(), studentDetailsArrayList, StudentListFragment.this,date1,CLASS_ID);
+        recyclerViewAdapterForStudentList = new RecyclerViewAdapterForStudentList(getContext(), studentDetailsArrayList, StudentListFragment.this, date1, CLASS_ID);
 
         updateList(1);
 
@@ -242,14 +265,12 @@ defaultDate.setText(date+"-"+month+"-"+year);
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.floatingActionButtonAddStudent:{
+        switch (v.getId()) {
+            case R.id.floatingActionButtonAddStudent: {
                 showAddStudentDialog();
                 break;
             }
         }
-
-
 
 
     }

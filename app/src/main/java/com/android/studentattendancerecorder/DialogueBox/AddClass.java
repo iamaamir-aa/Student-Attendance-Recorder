@@ -77,17 +77,22 @@ public class AddClass extends DialogFragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.newClassAdd:{
                 String class_name=((EditText)v1.findViewById(R.id.classNameEditText)).getText().toString();
+                String semester=((EditText)v1.findViewById(R.id.semesterEditText)).getText().toString();
                 int strength=Integer.parseInt(((EditText)v1.findViewById(R.id.strength)).getText().toString());
                 String subject_name=((EditText)v1.findViewById(R.id.subjectNameEditText)).getText().toString();
-String startedOn=((TextView)v1.findViewById(R.id.startedOn)).getText().toString();
+                String startedOn=((TextView)v1.findViewById(R.id.startedOn)).getText().toString();
 
 
-                if((class_name.equals("") || subject_name.equals("")) || strength==0){
+                if((class_name.equals("")|| semester.equals("") || subject_name.equals("")) || strength==0||startedOn.equals("XX-XX-XXXX")){
+                    if(startedOn.equals("XX-XX-XXXX")){
+                        Toast.makeText(getContext(),"Select Start Date",Toast.LENGTH_SHORT).show();
+                    }else{
+
                     Toast.makeText(getContext(),"Provide all fields",Toast.LENGTH_SHORT).show();
-                }else{
+                }}else{
                     DatabaseReference newRef=databaseRef.child(mAuth.getCurrentUser().getUid()).child("CLASS").push();
                     String key=newRef.getKey();
-                    ClassAndSubjectDetails newClass=new ClassAndSubjectDetails(class_name,subject_name,key,null,startedOn,strength);
+                    ClassAndSubjectDetails newClass=new ClassAndSubjectDetails(class_name,subject_name,key,null,semester,startedOn,strength);
                     newRef.setValue(newClass);
                     dismiss();
                 }

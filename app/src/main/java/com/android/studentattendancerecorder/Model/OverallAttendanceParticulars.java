@@ -3,48 +3,17 @@ package com.android.studentattendancerecorder.Model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-public class PdfDataParticulars {
+public class OverallAttendanceParticulars {
     private String departmentName,class_name,subject_name,month,classStarted,teacher,sem,strength;
-    private ArrayList<HashMap<String,HashMap<Integer , Character>>> listOfStudentAndAttendance;
+    private ArrayList<HashMap<String,HashMap<String,Double>>> listOfStudentAndOverallAttendance;
 
     public String getDepartmentName() {
         return departmentName;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-
-    public ArrayList<HashMap<String, HashMap<Integer, Character>>> getListOfStudentAndAttendance() {
-        return listOfStudentAndAttendance;
-    }
-
-    public void setListOfStudentAndAttendance(ArrayList<HashMap<String, HashMap<Integer, Character>>> listOfStudentAndAttendance) {
-        this.listOfStudentAndAttendance = listOfStudentAndAttendance;
-    }
-
-    public PdfDataParticulars() {
-        listOfStudentAndAttendance=new ArrayList<>();
-    }
-
-    public PdfDataParticulars(String departmentName, String class_name, String subject_name, String month, String classStarted, String teacher, String sem, String strength, ArrayList<HashMap<String, HashMap<Integer, Character>>> listOfStudentAndAttendance) {
-        this.departmentName = departmentName;
-        this.class_name = class_name;
-        this.subject_name = subject_name;
-        this.month = month;
-
-        this.classStarted = classStarted;
-        this.teacher = teacher;
-        this.sem = sem;
-        this.strength = strength;
-        this.listOfStudentAndAttendance = listOfStudentAndAttendance;
-    }
-
     @Override
     public String toString() {
-        return "PdfDataParticulars{" +
+        return "OverallAttendanceParticulars{" +
                 "departmentName='" + departmentName + '\'' +
                 ", class_name='" + class_name + '\'' +
                 ", subject_name='" + subject_name + '\'' +
@@ -53,8 +22,12 @@ public class PdfDataParticulars {
                 ", teacher='" + teacher + '\'' +
                 ", sem='" + sem + '\'' +
                 ", strength='" + strength + '\'' +
-                ", listOfStudentAndAttendance=" + listOfStudentAndAttendance +
+                ", listOfStudentAndOverallAttendance=" + listOfStudentAndOverallAttendance +
                 '}';
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public String getClass_name() {
@@ -80,7 +53,6 @@ public class PdfDataParticulars {
     public void setMonth(String month) {
         this.month = month;
     }
-
 
     public String getClassStarted() {
         return classStarted;
@@ -114,4 +86,11 @@ public class PdfDataParticulars {
         this.strength = strength;
     }
 
+    public ArrayList<HashMap<String, HashMap<String, Double>>> getListOfStudentAndOverallAttendance() {
+        return listOfStudentAndOverallAttendance;
+    }
+
+    public void setListOfStudentAndOverallAttendance(ArrayList<HashMap<String, HashMap<String, Double>>> listOfStudentAndOverallAttendance) {
+        this.listOfStudentAndOverallAttendance = listOfStudentAndOverallAttendance;
+    }
 }

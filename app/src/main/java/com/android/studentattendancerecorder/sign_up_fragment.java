@@ -23,14 +23,19 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class sign_up_fragment extends Fragment {
     public Button saveSignUpButton;
     public EditText emailEditText;
-    public EditText passwordEditText;
+    public EditText passwordEditText,editTextPersonName,editTextDepartmentName;
     private FirebaseAuth mAuth;
     private EditText confirmPasswordEditText;
+    private DatabaseReference databaseRef;
+    private String name;
+    private String departmentName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,12 +53,13 @@ public class sign_up_fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
       mAuth = FirebaseAuth.getInstance();
+
         emailEditText=view.findViewById(R.id.emailEditText);
         passwordEditText=view.findViewById(R.id.passwordEditText);
-
+editTextPersonName=view.findViewById(R.id.editTextTextPersonName);
         confirmPasswordEditText=view.findViewById(R.id.confirmPasswordEditText);
-    saveSignUpButton=view.findViewById(R.id.saveSignUpDetailsButton);
-
+        saveSignUpButton=view.findViewById(R.id.saveSignUpDetailsButton);
+editTextDepartmentName=view.findViewById(R.id.editTextTextDepartmentName);
 
 
 
@@ -71,13 +77,19 @@ public class sign_up_fragment extends Fragment {
         public void onClick(View v) {
             String email=emailEditText.getText().toString();
             String password=passwordEditText.getText().toString();
+            name=editTextPersonName.getText().toString();
+            departmentName=editTextDepartmentName.getText().toString();
             String confirmPassword=confirmPasswordEditText.getText().toString();
-            if(password.equals(confirmPassword)){
-                createAccount(email,password);
+            if(email.equals("")||password.equals("")||confirmPassword.equals("")||name.equals("")||departmentName.equals("")){
+                Snackbar.make(getView(),"ENTER ALL FIELDS",Snackbar.LENGTH_SHORT).show();
             }else{
-                Snackbar.make(getView(),"PASSWORD NOT MATCHED",Snackbar.LENGTH_SHORT).show();
-            }
 
+                if(password.equals(confirmPassword)){
+                    createAccount(email,password);
+                }else{
+                    Snackbar.make(getView(),"PASSWORD NOT MATCHED",Snackbar.LENGTH_SHORT).show();
+                }
+            }
         }
     });
     }
@@ -95,6 +107,8 @@ public class sign_up_fragment extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("SEE", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseDatabase.getInstance().getReference().child("USERS").child(mAuth.getCurrentUser().getUid()).child("name").setValue(name);
+                            FirebaseDatabase.getInstance().getReference().child("USERS").child(mAuth.getCurrentUser().getUid()).child("departmentName").setValue(departmentName);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

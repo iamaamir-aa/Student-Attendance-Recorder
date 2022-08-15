@@ -110,39 +110,23 @@ holder.selection=2;
         public void onClick(View v) {
             System.out.println(v.getTag());
             StudentsDetail studentsDetail = studentDetails.get(Integer.parseInt(v.getTag().toString()));
-            String currentDate="";
-
-            if(date.getDate()<10){
-                if(date.getMonth()<10){
-                     currentDate="0"+date.getDate()+"-0"+ date.getMonth()+"-"+date.getYear();
-                }else{
-                     currentDate="0"+date.getDate()+"-"+ date.getMonth()+"-"+date.getYear();
-
-                }
-            }else if(date.getMonth()<10){
-                 currentDate=date.getDate()+"-0"+ date.getMonth()+"-"+date.getYear();
-
-            }else{
-                 currentDate=date.getDate()+"-"+ date.getMonth()+"-"+date.getYear();
-            }
-
 
             if (selection==1){
                 studentItemLayout.setBackgroundResource(R.drawable.rounded_edittext_green);
-                databaseRef.child(USER_ID).child("CLASS").child(CLASS_ID).child("students").child(studentsDetail.getId()).child("DATES").child(currentDate).child("attendance").setValue(1);
+                databaseRef.child(USER_ID).child("CLASS").child(CLASS_ID).child("students").child(studentsDetail.getId()).child("DATES").child(String.valueOf(date.getYear())).child(String.valueOf(date.getMonth())).child(String.valueOf(date.getDate())).child("attendance").setValue(1);
                 selection=2;
             }
             else if(selection==2){
                 studentItemLayout.setBackgroundResource(R.drawable.rounded_edittext_red);
-                databaseRef.child(USER_ID).child("CLASS").child(CLASS_ID).child("students").child(studentsDetail.getId()).child("DATES").child(currentDate).child("attendance").setValue(-1);
+                databaseRef.child(USER_ID).child("CLASS").child(CLASS_ID).child("students").child(studentsDetail.getId()).child("DATES").child(String.valueOf(date.getYear())).child(String.valueOf(date.getMonth())).child(String.valueOf(date.getDate())).child("attendance").setValue(-1);
                 selection=0;
             }else if(selection==0){
                 studentItemLayout.setBackgroundResource(R.drawable.rounded_edittext);
-                databaseRef.child(USER_ID).child("CLASS").child(CLASS_ID).child("students").child(studentsDetail.getId()).child("DATES").child(currentDate).child("attendance").setValue(2);
+                databaseRef.child(USER_ID).child("CLASS").child(CLASS_ID).child("students").child(studentsDetail.getId()).child("DATES").child(String.valueOf(date.getYear())).child(String.valueOf(date.getMonth())).child(String.valueOf(date.getDate())).child("attendance").setValue(0);
                 selection=1;
             }
 
-        }
+                }
     }
 
 

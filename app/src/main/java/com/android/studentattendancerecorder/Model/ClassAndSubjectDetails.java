@@ -9,6 +9,26 @@ public class ClassAndSubjectDetails {
     private String subject_name;
     private String id;
     private ArrayList<StudentsDetail> students;
+    private String semester;
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public ClassAndSubjectDetails(String class_name, String subject_name, String id, ArrayList<StudentsDetail> students, String semester, String classStarted, int strength) {
+        this.class_name = class_name;
+        this.subject_name = subject_name;
+        this.id = id;
+        this.students = students;
+        this.semester = semester;
+        this.classStarted = classStarted;
+        this.strength = strength;
+    }
+
     private String classStarted;
     private int strength;
 

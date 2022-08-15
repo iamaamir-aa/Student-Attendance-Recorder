@@ -43,7 +43,7 @@
             android:layout_marginBottom="6dp"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:hint="Eg. MCA"
+            android:hint="MCA"
             android:inputType="textPersonName"
             android:padding="10dp" />
 
@@ -62,7 +62,27 @@
             android:layout_marginBottom="6dp"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:hint="Operating Systems"
+            android:hint="Object Oriented Programming"
+            android:inputType="textPersonName"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Semester / Year"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/semesterEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:hint="IInd Sem."
             android:inputType="textPersonName"
             android:padding="10dp" />
 
@@ -84,7 +104,7 @@
             android:drawableRight="@drawable/ic_calendar"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="20-10-1999"
+            android:text="XX-XX-XXXX"
             android:textColor="#000000"
             android:textSize="16sp" />
 
@@ -104,7 +124,7 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:hint="58"
+            android:hint="XX"
             android:inputType="number|textPersonName"
             android:padding="10dp" />
 
