@@ -8,7 +8,10 @@
     tools:context=".printAttendance">
 
     <RadioGroup
-        android:id="@+id/radioGroupSelectPrint"
+        android:id="@+id/radioGroupSelectPrint">
+
+    <TextView
+        android:id="@+id/textView13"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"

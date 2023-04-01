@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -71,7 +72,6 @@ editTextDepartmentName=view.findViewById(R.id.editTextTextDepartmentName);
 
 
 
-
     saveSignUpButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -109,6 +109,7 @@ editTextDepartmentName=view.findViewById(R.id.editTextTextDepartmentName);
                             FirebaseUser user = mAuth.getCurrentUser();
                             FirebaseDatabase.getInstance().getReference().child("USERS").child(mAuth.getCurrentUser().getUid()).child("name").setValue(name);
                             FirebaseDatabase.getInstance().getReference().child("USERS").child(mAuth.getCurrentUser().getUid()).child("departmentName").setValue(departmentName);
+
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

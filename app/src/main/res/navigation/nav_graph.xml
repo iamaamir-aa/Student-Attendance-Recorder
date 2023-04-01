@@ -13,6 +13,7 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
+
             app:destination="@id/SecondFragment"
             app:popUpTo="@id/FirstFragment"
             app:popUpToInclusive="true"/>
@@ -85,4 +86,5 @@
         android:name="com.android.studentattendancerecorder.aboutUs"
         android:label="fragment_about_us"
         tools:layout="@layout/fragment_about_us" />
+
 </navigation>

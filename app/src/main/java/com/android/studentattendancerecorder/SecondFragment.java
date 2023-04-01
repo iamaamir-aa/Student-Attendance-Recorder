@@ -36,10 +36,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 
 public class SecondFragment extends Fragment implements View.OnClickListener, DialogInterface.OnDismissListener {
     private RecyclerView recyclerViewClass;
@@ -69,8 +70,32 @@ public void hideSpinner(){
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 
         inflater.inflate(R.menu.menu_class,menu);
-    }
+ }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.signOutMenuButton:mAuth.signOut();updateUI(mAuth.getCurrentUser());
+            return true;
+            case R.id.about: return false;
+            default:
+                Toast.makeText(getActivity(), "Incorrect Selection", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return false;
+    }
+    private void updateUI(FirebaseUser user){
+        if(user==null) {
+            NavHostFragment.findNavController(SecondFragment.this)
+                    .navigate(R.id.action_SecondFragment_to_FirstFragment);
+        }
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
@@ -132,7 +157,7 @@ public void hideSpinner(){
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         spinner = (ProgressBar)view.findViewById(R.id.progressBar);
-showSpinner();
+        showSpinner();
         mAuth=FirebaseAuth.getInstance();
         databaseRef =FirebaseDatabase.getInstance().getReference("USERS");
         recyclerViewClass = view.findViewById(R.id.recyclerViewClass);
@@ -159,6 +184,8 @@ showSpinner();
         selectStartDate=view.findViewById(R.id.selectStartDate);
         selectStartDate.setOnClickListener(this);
     }
+
+
 
 
 
