@@ -1,77 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:isScrollContainer="true"
-    tools:context=".SecondFragment">
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutClass"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayoutClass"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonToAddClass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="36dp"
-            android:clickable="true"
-            android:src="@android:drawable/ic_input_add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewClass"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_height="wrap_content"
+    android:background="#5FD5E4">
 
     <LinearLayout
-        android:id="@+id/linearLayoutAddingClass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_edittext"
         android:backgroundTint="#A8DBEE"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="12dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textViewAddNewClass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -81,17 +29,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewAddNewClass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Add New Class"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Class Name"
@@ -100,18 +37,17 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextClassName"
+            android:id="@+id/classNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:hint="Eg. MCA"
+            android:hint="MCA"
             android:inputType="textPersonName"
             android:padding="10dp" />
 
         <TextView
-            android:id="@+id/tv2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Subject"
@@ -120,26 +56,46 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextSubjectName"
+            android:id="@+id/subjectNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:hint="Operating Systems"
+            android:hint="Object Oriented Programming"
             android:inputType="textPersonName"
             android:padding="10dp" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Semester / Year"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/semesterEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:hint="IInd Sem."
+            android:inputType="textPersonName"
+            android:padding="10dp" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Started on"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold" />
+
         <TextView
-            android:id="@+id/selectStartDate"
+            android:id="@+id/startedOn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -148,12 +104,11 @@
             android:drawableRight="@drawable/ic_calendar"
             android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="20-10-1999"
+            android:text="XX-XX-XXXX"
             android:textColor="#000000"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -163,16 +118,15 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/strength"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:hint="58"
+            android:hint="XX"
             android:inputType="number|textPersonName"
             android:padding="10dp" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -180,7 +134,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/addButton"
+                android:id="@+id/newClassAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="48dp"
@@ -188,7 +142,7 @@
                 android:text="Add" />
 
             <Button
-                android:id="@+id/cancelButton"
+                android:id="@+id/newClassCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
@@ -197,4 +151,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

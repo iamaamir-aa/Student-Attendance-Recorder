@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:title="Item" />
-    <item
+<item
+        android:id="@+id/changeDate"
+        android:title="Change Date" />
+ <item
         android:id="@+id/print"
         android:title="Print" />
 </menu>

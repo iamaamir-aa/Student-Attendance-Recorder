@@ -1,15 +1,39 @@
 package com.android.studentattendancerecorder.Model;
 
+import java.util.ArrayList;
+
 public class StudentsDetail {
     private String studentName;
     private String enrollmentNumber;
-    private Boolean present;
+    private String id;
+    private ArrayList<Dates> date;
 
-    public StudentsDetail(String studentName, String enrollmentNumber, Boolean present) {
+    public StudentsDetail(String studentName, String enrollmentNumber, String id, ArrayList<Dates> dates) {
         this.studentName = studentName;
         this.enrollmentNumber = enrollmentNumber;
-        this.present = present;
+        this.id = id;
+        this.date = dates;
     }
+
+    public ArrayList<Dates> getDates() {
+        return date;
+    }
+
+    public void setDates(ArrayList<Dates> dates) {
+        this.date = dates;
+    }
+
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
 
     public String getStudentName() {
         return studentName;
@@ -27,11 +51,4 @@ public class StudentsDetail {
         this.enrollmentNumber = enrollmentNumber;
     }
 
-    public Boolean getPresent() {
-        return present;
-    }
-
-    public void setPresent(Boolean present) {
-        this.present = present;
-    }
 }

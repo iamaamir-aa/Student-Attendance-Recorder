@@ -3,18 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.1715" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/drawable/ic_calendar.xml" value="0.1715" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/drawable/rounded_edittext.xml" value="0.2105" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/drawable/rounded_edittext_green.xml" value="0.1715" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/drawable/rounded_edittext_red.xml" value="0.1715" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/drawable/spinner_bg.xml" value="0.1715" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/drawable/squared_radioitem.xml" value="0.1715" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/addclassdialogue.xml" value="0.203125" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/addstudent.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/addstudentdialogue.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/classlist.xml" value="0.33" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/classlistitem.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/content_main.xml" value="0.22" />
-        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_about_us.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_about_us.xml" value="0.25" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_about_us_fragment.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_first.xml" value="0.25" />
-        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_print_attendance.xml" value="0.22" />
-        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_second.xml" value="0.2" />
-        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_sign_up_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_print_attendance.xml" value="0.25" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_second.xml" value="0.22" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_sign_up_fragment.xml" value="0.25" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/fragment_student_list.xml" value="0.25" />
+        <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/layout/studentlistitem.xml" value="0.49072753209700426" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/menu/contextmenuclass.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/menu/menu_class.xml" value="0.22" />
         <entry key="..\:/Users/Aamir Ansari/AndroidStudioProjects/StudentAttendanceRecorder/app/src/main/res/menu/menu_main.xml" value="0.33" />
